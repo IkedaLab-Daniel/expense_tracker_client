@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import all_books from '../assets/all-books-w.svg'
+import { BookContext } from '../context/BookProvider'
 import BookDataCard from '../components/BookDataCard'
 import BookGraphCard from '../components/BookGraphCard'
-
+import BookCard from '../components/BookCard'
 function Home(){
-    
-    const [books, setBooks] = useState([]);
 
-    useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/books')
-        .then(response => response.json)
-        .then(data => setBooks(data))
-        .catch(error => console.log(error))
-    }, []);
+    const {books} = useContext(BookContext)
+    console.log(books)
 
     return(
         <div id="home">
@@ -72,9 +67,24 @@ function Home(){
                     <BookGraphCard />
                 </div>
                 <div className="bottom">
-                    Book Data here
-                    <h1>Sample Call:</h1>
-                    <p>All Books:</p>
+                    Book Data here:
+                    <div className="book-card-container">
+                        {books.map(book => {
+                            return (
+                                <BookCard 
+                                    key={book.id} 
+                                    id={book.id}
+                                    title={book.title} 
+                                    subtitle = {book.subtitle}
+                                    authors = {book.authors}
+                                    publisher = {book.publisher}
+                                    published_date = {book.published_date}
+                                    expense = {book.distribution_expense}
+                                    category = {book.category}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
                 
             </main>
