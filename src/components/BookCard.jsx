@@ -34,7 +34,7 @@ function BookCard(props) {
     const shortenTitle = (title) => {
         return title.length > 40 ? title.slice(0, 40) + "..." : title;
     }
-
+    
     return (
         <div className="book-card">
             <p className="book_id">
