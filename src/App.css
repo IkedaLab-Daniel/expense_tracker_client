@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -6,18 +7,39 @@
   margin: 0;
   font-family: "Poppins", sans-serif;
   color: #ffffff;
+  text-decoration: none;
+}
+
+body{
+  overflow-x: hidden;
+}
+
+#ice{
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #88C9F9;
+  text-shadow: -3px 2px 9px #daefff46;
+  transition: .4s;
+}
+
+#ice:hover{
+  text-shadow: -3px 2px 9px #daefff46;
+  font-size: 1.3rem;
+  text-decoration: underline;
 }
 
 #home{
-  background-color: #303030;
   display: flex;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   width: 100vw;
+  background-color: #393939;
 }
 
 #home .side-nav{
   background-color: #171717;
-  position: relative;
+  position: fixed;
   width: 15%;
   min-width: 320px;
   height: 100%;
@@ -50,7 +72,7 @@
   font-size: 1rem;
   padding: 6px;
   border-radius: 6px;
-  transition: .4s;
+  transition: .2s;
   cursor: pointer;
 }
 
@@ -66,7 +88,7 @@
 
 #home .side-nav .login-sign-container{
   position: absolute;
-  bottom: 30px;
+  bottom: 50px;
   width: 80%;
 }
 
@@ -80,7 +102,7 @@
   padding: 10px 2px;
   font-weight: 500;
   margin-bottom: 10px;
-  transition: .4s;
+  transition: .3s;
   color: black;
 }
 
@@ -89,7 +111,12 @@
   cursor: pointer;
   color: rgb(239, 239, 239);
   border: 2px rgb(42, 42, 42) solid;
-  text-decoration: underline;
+  box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.75);
+}
+
+#home .side-nav .login-sign-container .login:active{
+  transform: scale(95%);
+  box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.318);
 }
 
 #home .side-nav .login-sign-container .signup{
@@ -102,7 +129,7 @@
   padding: 10px 2px;
   font-weight: 500;
   color: white;
-  transition: .4s;
+  transition: .3s;
 }
 
 #home .side-nav .login-sign-container .signup:hover{
@@ -110,15 +137,36 @@
   cursor: pointer;
   color: black;
   border: 2px rgba(255, 255, 255, 0.779) solid;
-  text-decoration: underline;
+  box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.75);
+}
+
+#home .side-nav .login-sign-container .signup:active{
+  transform: scale(95%);
+  box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.318);
+}
+
+#home .copyright{
+  position: absolute;
+  bottom: 10px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+#home .copyright img{
+  width: 20px;
+  margin-right: 4px;
+  transform: rotate(0);
+  animation: rotation 2s infinite linear;
 }
 
 #home main{
-  width: 85%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   padding: 25px;
+  margin-left: 310px;
 }
 
 #home main .top{
@@ -133,6 +181,7 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 
@@ -162,6 +211,18 @@
   border-radius: 8px;
   padding: 10px 15px;
   position: relative;
+  transition: .4s;
+  box-shadow: 0px 2px 23px 0px rgba(224, 224, 224, 0.132);
+}
+
+.book-card:hover{
+  cursor: pointer;
+  transform: scale(105%);
+}
+
+.book-card:active{
+  opacity: 0.8;
+  transform: scale(98%);
 }
 
 .book_id{
@@ -174,10 +235,18 @@
   text-align: center;
   font-size: 1.3rem;
   margin: 12px 0;
+  text-shadow: -3px 2px 9px rgba(198, 198, 198, 0.432);
 }
 
 .book-author{
   text-align: center;
+}
+
+.authorSVG{
+  width: 1rem;
+  position: relative;
+  bottom: -3px;
+  right: 7px;
 }
 
 .book-date{
@@ -202,4 +271,21 @@
 
 .book-card-bottom .book-category{
   font-size: .8rem;
+}
+
+.book-card-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+}
+
+@keyframes rotation{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
 }

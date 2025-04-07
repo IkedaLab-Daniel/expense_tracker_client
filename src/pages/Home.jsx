@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
+// Images
 import all_books from '../assets/all-books-w.svg'
+import iceSVG from '../assets/ice.svg'
+// Components
 import { BookContext } from '../context/BookProvider'
 import BookDataCard from '../components/BookDataCard'
 import BookGraphCard from '../components/BookGraphCard'
@@ -60,6 +63,12 @@ function Home(){
                     <span className="login">Log In</span>
                     <span className="signup">Sign Up</span>
                 </div>
+                <div className="copyright">
+                    <img src={iceSVG} />
+                    <a href='https://www.tiktok.com/@dev.iceice?is_from_webapp=1&sender_device=pc' target='_blank'>
+                        <span id='ice'>@dev.iceice</span>
+                    </a>
+                </div>
             </div>
             <main>
                 <div className="top">
@@ -69,6 +78,21 @@ function Home(){
                 <div className="bottom">
                     Book Data here:
                     <div className="book-card-container">
+                        {books.map(book => {
+                            return (
+                                <BookCard 
+                                    key={book.id} 
+                                    id={book.id}
+                                    title={book.title} 
+                                    subtitle = {book.subtitle}
+                                    authors = {book.authors}
+                                    publisher = {book.publisher}
+                                    published_date = {book.published_date}
+                                    expense = {book.distribution_expense}
+                                    category = {book.category}
+                                />
+                            );
+                        })}
                         {books.map(book => {
                             return (
                                 <BookCard 
