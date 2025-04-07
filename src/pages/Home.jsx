@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 // Images
 import all_books from '../assets/all-books-w.svg'
 import iceSVG from '../assets/ice.svg'
+import noDataSVG from '../assets/no-data-2.svg'
 // Components
 import { BookContext } from '../context/BookProvider'
 import BookDataCard from '../components/BookDataCard'
@@ -12,6 +13,7 @@ function Home(){
     const {books} = useContext(BookContext)
     const [bookCategory, setBookCategory] = useState([])
     const [showByCategory, setShowByCategory] = useState(false)
+    const [viewDetail, setViewDetail] = useState('All Books')
     console.log(books)
 
     const bookCategoryCall = (category) => {
@@ -23,6 +25,34 @@ function Home(){
         })  
         .catch(error => console.error('Error fetching data:', error));
         setShowByCategory(true)
+        
+        switch (category){
+            case '1':
+                setViewDetail('Business analytics:')
+                break;
+            case '2':
+                setViewDetail('Deep learning:')
+                break;
+            case '3':
+                setViewDetail('Data science:')
+                break;
+            case '4':
+                setViewDetail('Mathematics:')
+                break;
+            case '5':
+                setViewDetail('Data Ethics:')
+                break;
+            case '6':
+                setViewDetail('NLP:')
+                break;
+            case '7':
+                setViewDetail('Python:')
+                break;
+        }
+    }
+
+    const viewAll = () =>{
+        setShowByCategory(false)
     }
 
     return(
@@ -31,7 +61,7 @@ function Home(){
                 <p className="title">SmartShelf Systems</p>
                 <p className="label">BOOKS</p>
                 <div className="btn-container">
-                    <div className="button-set">
+                    <div className="button-set" onClick={viewAll}>
                         <img src={all_books} className='icon' />
                         <span className="button">All</span>
                     </div>
@@ -89,7 +119,7 @@ function Home(){
                     <BookGraphCard />
                 </div>
                 <div className="bottom">
-                    Book Data here:
+                    <h2>{viewDetail}</h2>
                     <div className="book-card-container">
                         {showByCategory ? (
                             bookCategory.length > 0 ? (
@@ -107,9 +137,11 @@ function Home(){
                                     />
                                 )) 
                             ) :
-                            (<span className='no-data'>No data</span>)
-                        )
-                            
+                            (<div className='no-data-container'>
+                                <img src={noDataSVG} />
+                                <span className='no-data'>No data</span>
+                            </div>)
+                        )  
                             : 
                             books.map(book => (
                                 <BookCard 

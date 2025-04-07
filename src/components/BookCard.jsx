@@ -36,30 +36,33 @@ function BookCard(props) {
     }
     
     return (
-        <div className="book-card">
-            <p className="book_id">
-                <img className='authorSVG' src={idSVG} />
-                {props.id}
-            </p>
-
-            <div className="book-card-center">
-                <p className="book-title">{shortenTitle(props.title)}</p>
-                <p className="book-author">
-                    <img className='authorSVG' src={authorSVG} />
-                    {props.authors}
+        <div className="book-card-wrapper">
+            <div className="book-card">
+                <p className="book_id">
+                    <img className='authorSVG' src={idSVG} />
+                    {props.id}
                 </p>
-                <p className="book-date">
-                    <img className='authorSVG' src={dateSVG} />
-                    {props.published_date}
-                </p>
-            </div>
 
-            <div className="book-card-bottom">
-                <p className="book-category">{checkCategory(props.category)}</p>
-                <p className="book-expense">$ {props.expense}</p>
-            </div>
+                <div className="book-card-center">
+                    <p className="book-title">{shortenTitle(props.title)}</p>
+                    <p className="book-author">
+                        <img className='authorSVG' src={authorSVG} />
+                        {props.authors}
+                    </p>
+                    <p className="book-date">
+                        <img className='authorSVG' src={dateSVG} />
+                        {props.published_date}
+                    </p>
+                </div>
 
+                <div className="book-card-bottom">
+                    <p className="book-category">{checkCategory(props.category)}</p>
+                    <p className="book-expense">$ {props.expense}</p>
+                </div>
+
+            </div>
         </div>
+        
     )
 }
 
