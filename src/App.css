@@ -311,6 +311,92 @@ body{
   font-size: 2rem;
 }
 
+.black-bg{
+  width: 100vw;
+  height: 100vh;
+  background-color: #17171760;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fade 1s ease forwards;
+}
+
+/* Log In */
+.login-modal {
+  width: 30vw;
+  min-width: 500px;
+  height: auto;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fade .5s ease forwards;
+}
+
+.login-modal h1{
+  color: black;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.vertical-center{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form input{
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid rgb(142, 142, 142);
+  color: black;
+  transition: .4s;
+}
+
+.form input:focus{
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid rgb(73, 73, 73);
+  color: black;
+  outline: 0px;
+}
+
+.form .submit-btn{
+  color: rgba(255, 255, 255, 0.796);
+  background-color: black;
+  width: 80%;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 20px 0;
+  transition: .4s;
+}
+
+.form .submit-btn:hover{
+  opacity: .8;
+  cursor: pointer;
+  transform: translateY(-2px) scale(102%);
+  color: white;
+}
+
+.form .submit-btn:active{
+  opacity: .5;
+  transform: translateY(5px) scale(97%);
+}
+
 
 @keyframes rotation{
   0%{
@@ -318,6 +404,14 @@ body{
   }
   100%{
     transform: rotate(360deg);
+  }
+}
+@keyframes fade{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }
 

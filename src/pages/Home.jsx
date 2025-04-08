@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 // Images
 import all_books from '../assets/all-books-w.svg'
 import iceSVG from '../assets/ice.svg'
@@ -8,12 +8,16 @@ import { BookContext } from '../context/BookProvider'
 import BookDataCard from '../components/BookDataCard'
 import BookGraphCard from '../components/BookGraphCard'
 import BookCard from '../components/BookCard'
+import Login from '../components/Login'
+
 function Home(){
 
     const {books} = useContext(BookContext)
     const [bookCategory, setBookCategory] = useState([])
     const [showByCategory, setShowByCategory] = useState(false)
     const [viewDetail, setViewDetail] = useState('All Books')
+    const [viewModal, setViewModal] = useState('none')
+
     console.log(books)
 
     const bookCategoryCall = (category) => {
@@ -53,6 +57,21 @@ function Home(){
 
     const viewAll = () =>{
         setShowByCategory(false)
+    }
+
+    const renderModal = () => {
+        switch (viewModal){
+            case 'none':
+                return ''
+            case 'login':
+                return <Login style={{display: 'block',}}/>
+            case 'signup':
+                return <h1>Sign Up</h1>
+        }
+    }
+
+    const handleModal = (modal) => {
+        setViewModal(modal)
     }
 
     return(
@@ -103,8 +122,8 @@ function Home(){
                     </div>
                 </div>
                 <div className='login-sign-container'>
-                    <span className="login">Log In</span>
-                    <span className="signup">Sign Up</span>
+                    <span className="login" onClick={() => handleModal('login')}>Log In</span>
+                    <span className="signup" onClick={() => handleModal('signup')}>Sign Up</span>
                 </div>
                 <div className="copyright">
                     <img src={iceSVG} />
@@ -157,10 +176,10 @@ function Home(){
                                 />
                             ))
                         }
-    </div>
-</div>
-                
+                    </div>
+                </div>
             </main>
+            {renderModal()}
         </div>
     )
 }
