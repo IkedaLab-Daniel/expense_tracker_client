@@ -1,9 +1,19 @@
 import { useState } from "react"
+import toast, { Toaster } from 'react-hot-toast';
 
 function Login(){
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    const notifySuccess = () => toast.success('Log In Successful!', {
+        position: '',
+    });
+    
+    const notifyFail = () => toast.error('Incorrect Username or Password!', {
+        position: 'top-center',
+        style: {padding: '15px 15px'}
+    });
 
     const handleSubmit = () => {
         fetch('http://127.0.0.1:8000/auth/token/login/', {
@@ -23,10 +33,22 @@ function Login(){
             return response.json();
         })
         .then(data => {
-            console.log('Login successful:', data);        
+            const token = data.auth_token;
+            localStorage.setItem('authToken', token);
+            notifySuccess();
+            console.log('Login successful:', token);
         })
-        .catch(error => console.error('Error during login:', error));
+        .catch(error => {
+            console.error('Error during login:', error)
+            notifyFail();
+        });
+    
+    
+        setUsername('');
+        setPassword('');
     };
+    
+    const token = localStorage.getItem('authToken');
 
     return(
         <>
@@ -50,6 +72,7 @@ function Login(){
                 </div>
                 
             </div>
+            <Toaster />
         </>
         
     )

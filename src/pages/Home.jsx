@@ -140,28 +140,29 @@ function Home(){
                 <div className="bottom">
                     <h2>{viewDetail}</h2>
                     <div className="book-card-container">
-                        {showByCategory ? (
-                            bookCategory.length > 0 ? (
-                                bookCategory.map(book => (
-                                    <BookCard 
-                                        key={book.id} 
-                                        id={book.id}
-                                        title={book.title} 
-                                        subtitle={book.subtitle}
-                                        authors={book.authors}
-                                        publisher={book.publisher}
-                                        published_date={book.published_date}
-                                        expense={book.distribution_expense}
-                                        category={book.category}
-                                    />
-                                )) 
-                            ) :
-                            (<div className='no-data-container'>
+                    {showByCategory ? (
+                        bookCategory.length > 0 ? (
+                            bookCategory.map(book => (
+                                <BookCard 
+                                    key={book.id} 
+                                    id={book.id}
+                                    title={book.title} 
+                                    subtitle={book.subtitle}
+                                    authors={book.authors}
+                                    publisher={book.publisher}
+                                    published_date={book.published_date}
+                                    expense={book.distribution_expense}
+                                    category={book.category}
+                                />
+                            ))
+                        ) : (
+                            <div className='no-data-container'>
                                 <img src={noDataSVG} />
                                 <span className='no-data'>No data</span>
-                            </div>)
-                        )  
-                            : 
+                            </div>
+                        )
+                    ) : (
+                        books.length > 0 ? (
                             books.map(book => (
                                 <BookCard 
                                     key={book.id} 
@@ -175,7 +176,13 @@ function Home(){
                                     category={book.category}
                                 />
                             ))
-                        }
+                        ) : (
+                            <div className='no-data-container'>
+                                <img src={noDataSVG} />
+                                <span className='no-data'>No data</span>
+                            </div>
+                        )
+                    )}
                     </div>
                 </div>
             </main>
