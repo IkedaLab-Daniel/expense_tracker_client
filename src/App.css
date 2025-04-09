@@ -145,6 +145,33 @@ body{
   box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.318);
 }
 
+#home .side-nav .login-sign-container .logout{
+  width: 100%;
+  display: block;
+  text-align: center;
+  background-color: rgb(242, 242, 242);
+  border: 2px rgb(255, 255, 255) solid;
+  border-radius: 30px;
+  padding: 10px 2px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  transition: .3s;
+  color: rgb(215, 44, 44);
+}
+
+#home .side-nav .login-sign-container .logout:hover{
+  background-color: rgb(255, 75, 75);
+  cursor: pointer;
+  color: white;
+  border: 2px rgb(255, 75, 75) solid;
+  box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.75);
+}
+
+#home .side-nav .login-sign-container .logout:active{
+  transform: scale(95%);
+  box-shadow: 0px 2px 23px 0px rgba(222, 222, 222, 0.318);
+}
+
 #home .copyright{
   position: absolute;
   bottom: 10px;
@@ -171,7 +198,7 @@ body{
 
 #home main .top{
   width: 100%;
-  height: 40vh;
+  height: 30vh;
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
@@ -179,6 +206,7 @@ body{
 
 #home main .bottom h2{
   margin: 20px 0px;
+  animation: fade 1s ease forwards;
 }
 
 #home main .bottom .book-card-container{
@@ -195,8 +223,31 @@ body{
   min-width: 400px;
   height: 100%;
   border-radius: 8px;
-  box-shadow: 0px 2px 23px 0px rgba(54, 54, 54, 0.75);
+  padding: 10px;
 }
+
+.book-data-card h2{
+  font-size: 1.2rem;
+}
+
+.book-data-card .data-container{
+  width: 100%;
+  height: 80%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.book-data-card .data-container .data-left{
+  width: 50%;
+  background-color: blue;
+}
+
+.book-data-card .data-container .data-right{
+  width: 50%;
+  background-color: green;
+}
+
 
 .book-graph-card{
   background-color: #171717;

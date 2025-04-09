@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 // Images
 import all_books from '../assets/all-books-w.svg'
 import iceSVG from '../assets/ice.svg'
@@ -17,6 +18,12 @@ function Home(){
     const [showByCategory, setShowByCategory] = useState(false)
     const [viewDetail, setViewDetail] = useState('All Books')
     const [viewModal, setViewModal] = useState('none')
+    const [token, setToken] = useState(localStorage.getItem('authToken'));
+    const [count, setCount] = useState(1)
+    const logoutSuccess = () => toast.success('Logged Out!', {
+        position: 'top-center',
+        style: {padding: '15px 15px'}
+    });
 
     console.log(books)
 
@@ -52,11 +59,15 @@ function Home(){
             case '7':
                 setViewDetail('Python:')
                 break;
+            default:
+                setViewDetail('All books:')
         }
+        setCount(prev => (prev + 1))
     }
 
     const viewAll = () =>{
         setShowByCategory(false)
+        setViewDetail('All books:')
     }
 
     const renderModal = () => {
@@ -73,6 +84,28 @@ function Home(){
     const handleModal = (modal) => {
         setViewModal(modal)
     }
+
+    const handleLogout = () => {
+        const token = localStorage.getItem('authToken');
+    
+        fetch('http://127.0.0.1:8000/auth/token/logout/', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Token ${token}`,
+            }
+        })
+        .then(() => {
+            localStorage.removeItem('authToken');
+            setToken('')
+            logoutSuccess()
+        })
+        .catch(error => console.error('Error logging out:', error));
+    };
+
+    const getBookId = (id) => {
+        console.log(id);
+    }
+    
 
     return(
         <div id="home">
@@ -121,10 +154,17 @@ function Home(){
                         <span className="button">Show Data</span>
                     </div>
                 </div>
-                <div className='login-sign-container'>
-                    <span className="login" onClick={() => handleModal('login')}>Log In</span>
-                    <span className="signup" onClick={() => handleModal('signup')}>Sign Up</span>
-                </div>
+                { !token ? (
+                    <div className='login-sign-container'>
+                        <span className="login" onClick={() => handleModal('login')}>Log In</span>
+                        <span className="signup" onClick={() => handleModal('signup')}>Sign Up</span>
+                    </div>
+                ) : (
+                    <div className='login-sign-container'>
+                        <span className="logout" onClick={handleLogout}>Log Out</span>
+                    </div>
+                )}
+                
                 <div className="copyright">
                     <img src={iceSVG} />
                     <a href='https://www.tiktok.com/@dev.iceice?is_from_webapp=1&sender_device=pc' target='_blank'>
@@ -138,22 +178,25 @@ function Home(){
                     <BookGraphCard />
                 </div>
                 <div className="bottom">
-                    <h2>{viewDetail}</h2>
+                    <h2 key={count}>{viewDetail}</h2>
                     <div className="book-card-container">
                     {showByCategory ? (
                         bookCategory.length > 0 ? (
                             bookCategory.map(book => (
-                                <BookCard 
-                                    key={book.id} 
-                                    id={book.id}
-                                    title={book.title} 
-                                    subtitle={book.subtitle}
-                                    authors={book.authors}
-                                    publisher={book.publisher}
-                                    published_date={book.published_date}
-                                    expense={book.distribution_expense}
-                                    category={book.category}
-                                />
+                                <div key={book.id} onClick={() => getBookId(book.id)}>
+                                    <BookCard 
+                                        key={book.id} 
+                                        id={book.id}
+                                        title={book.title} 
+                                        subtitle={book.subtitle}
+                                        authors={book.authors}
+                                        publisher={book.publisher}
+                                        published_date={book.published_date}
+                                        expense={book.distribution_expense}
+                                        category={book.category}
+                                    />
+                                </div>
+                                
                             ))
                         ) : (
                             <div className='no-data-container'>
@@ -174,6 +217,7 @@ function Home(){
                                     published_date={book.published_date}
                                     expense={book.distribution_expense}
                                     category={book.category}
+                                    onClick={() => getBookId(book.id)}
                                 />
                             ))
                         ) : (
@@ -187,6 +231,7 @@ function Home(){
                 </div>
             </main>
             {renderModal()}
+            <Toaster />
         </div>
     )
 }
