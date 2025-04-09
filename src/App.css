@@ -233,19 +233,16 @@ body{
 .book-data-card .data-container{
   width: 100%;
   height: 80%;
-  background-color: red;
   display: flex;
   justify-content: center;
 }
 
 .book-data-card .data-container .data-left{
   width: 50%;
-  background-color: blue;
 }
 
 .book-data-card .data-container .data-right{
   width: 50%;
-  background-color: green;
 }
 
 

@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { BookContext } from "../context/BookProvider"
+import { PieChart } from '@mui/x-charts/PieChart';
 
 function BookDataCard(){
 
@@ -10,13 +11,19 @@ function BookDataCard(){
         <div className="book-data-card">
                 <h2>Total books: {totalBooks}</h2>
                 <div className="data-container">
-                    <div className="data-left">
-                        left
-                    </div>
-                    <div className="data-right">
-                        right
-                    </div>
-  
+                    <PieChart
+                        series={[
+                            {
+                            data: [
+                                { id: 0, value: 10, label: 'series A' },
+                                { id: 1, value: 15, label: 'series B' },
+                                { id: 2, value: 20, label: 'series C' },
+                            ],
+                            },
+                        ]}
+                        width={270}
+                        height={200}
+                    />  
                 </div>
         </div>
     )
