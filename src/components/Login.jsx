@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast';
 
-function Login({ onClose }){
+function Login({ onClose, onSwitch, onLoginSuccess }){
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const notifySuccess = () => toast.success('Log In Successful!', {
-        position: '',
+        position: 'top-center',
+        style: {padding: '15px 15px'}
     });
     
     const notifyFail = () => toast.error('Incorrect Username or Password!', {
@@ -38,16 +39,34 @@ function Login({ onClose }){
             onClose();
             console.log('Login successful:', token);
             notifySuccess();
+    
+            return fetch('http://127.0.0.1:8000/auth/users/me/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                }
+            });
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch user info');
+            }
+            return res.json();
+        })
+        .then(userData => {
+            console.log(userData);
+            localStorage.setItem('username', userData.username);
+            onLoginSuccess(userData.username);
         })
         .catch(error => {
-            console.error('Error during login:', error)
+            console.error('Error:', error);
             notifyFail();
         });
-    
     
         setUsername('');
         setPassword('');
     };
+    
     
     const token = localStorage.getItem('authToken');
 
@@ -57,21 +76,25 @@ function Login({ onClose }){
             <div className="login-modal form">
                 <h1>Log In</h1>
                 <div className="vertical-center">
-                <input 
-                    type="text" 
-                    placeholder="Username" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
-                />
-                <input 
-                    type="password" 
-                    placeholder="Password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                />
+                    <input 
+                        type="text" 
+                        placeholder="Username" 
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)} 
+                    />
+                    <input 
+                        type="password" 
+                        placeholder="Password" 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                    />
                     <span className="submit-btn" onClick={handleSubmit}>Log In</span>
+                    <span className="redirect-message">
+                        Don't have account? 
+                        <span className="redirect-link" onClick={onSwitch}> Sign Up</span>
+                    </span>
+                    
                 </div>
-                
             </div>
             <Toaster />
         </>

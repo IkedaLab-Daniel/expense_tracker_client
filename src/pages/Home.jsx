@@ -10,6 +10,7 @@ import BookDataCard from '../components/BookDataCard'
 import BookGraphCard from '../components/BookGraphCard'
 import BookCard from '../components/BookCard'
 import Login from '../components/Login'
+import Signup from '../components/Signup';
 
 function Home(){
 
@@ -20,6 +21,8 @@ function Home(){
     const [viewModal, setViewModal] = useState('none')
     const [token, setToken] = useState(localStorage.getItem('authToken'));
     const [count, setCount] = useState(1)
+    const [username, setUsername] = useState(localStorage.getItem('username'))
+
     const logoutSuccess = () => toast.success('Logged Out!', {
         position: 'top-center',
         style: {padding: '15px 15px'}
@@ -52,13 +55,21 @@ function Home(){
     }
 
     const renderModal = () => {
+        console.log('Switch modal')
         switch (viewModal){
             case 'none':
                 return null
             case 'login':
-                return <Login onClose={() => setViewModal('none')} />
+                return <Login
+                    onClose={() => setViewModal('none')}
+                    onSwitch={() => setViewModal('signup')}
+                    onLoginSuccess={(username) => {
+                        setUsername(username);
+                        setToken(localStorage.getItem('authToken'));
+                    }}
+                    />
             case 'signup':
-                return <h1>Sign Up</h1>
+                return <Signup onClose={() => setViewModal('none')} onSwitch={() => setViewModal('login')}/>
             default:
                 return null
         }
@@ -79,7 +90,9 @@ function Home(){
         })
         .then(() => {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('username');
             setToken('')
+            setUsername('')
             logoutSuccess()
         })
         .catch(error => console.error('Error logging out:', error));
@@ -91,6 +104,7 @@ function Home(){
 
     useEffect(() => {
         setToken(localStorage.getItem('authToken'))
+        setUsername(localStorage.getItem('username'))
     }, [viewModal])
     
 
@@ -148,6 +162,7 @@ function Home(){
                     </div>
                 ) : (
                     <div className='login-sign-container'>
+                        <p>Login as: {username}</p>
                         <span className="logout" onClick={handleLogout}>Log Out</span>
                     </div>
                 )}
