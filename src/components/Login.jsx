@@ -1,7 +1,7 @@
 import { useState } from "react"
 import toast, { Toaster } from 'react-hot-toast';
 
-function Login(){
+function Login({ onClose }){
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -36,6 +36,7 @@ function Login(){
             const token = data.auth_token;
             localStorage.setItem('authToken', token);
             notifySuccess();
+            onClose();
             console.log('Login successful:', token);
         })
         .catch(error => {
@@ -52,7 +53,7 @@ function Login(){
 
     return(
         <>
-            <div className="black-bg"></div>
+            <div className="black-bg" onClick={onClose}></div>
             <div className="login-modal form">
                 <h1>Log In</h1>
                 <div className="vertical-center">

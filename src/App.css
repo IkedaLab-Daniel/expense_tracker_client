@@ -233,18 +233,7 @@ body{
 .book-data-card .data-container{
   width: 100%;
   height: 80%;
-  display: flex;
-  justify-content: center;
 }
-
-.book-data-card .data-container .data-left{
-  width: 50%;
-}
-
-.book-data-card .data-container .data-right{
-  width: 50%;
-}
-
 
 .book-graph-card{
   background-color: #171717;

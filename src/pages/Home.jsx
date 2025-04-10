@@ -13,9 +13,9 @@ import Login from '../components/Login'
 
 function Home(){
 
-    const {books} = useContext(BookContext)
-    const [bookCategory, setBookCategory] = useState([])
-    const [showByCategory, setShowByCategory] = useState(false)
+    const { books, categoryBooks, currentCategory, pagination, setCurrentCategory, fetchBooks, fetchBooksByCategory } = useContext(BookContext);
+// !    const [bookCategory, setBookCategory] = useState([])
+// !    const [showByCategory, setShowByCategory] = useState(false)
     const [viewDetail, setViewDetail] = useState('All Books')
     const [viewModal, setViewModal] = useState('none')
     const [token, setToken] = useState(localStorage.getItem('authToken'));
@@ -28,58 +28,43 @@ function Home(){
     console.log(books)
 
     const bookCategoryCall = (category) => {
-        fetch('http://127.0.0.1:8000/api/books/category/' + category)
-        .then(response => response.json())
-        .then(data => {
-            setBookCategory(data.results)
-            console.log('Call at ', category)
-        })  
-        .catch(error => console.error('Error fetching data:', error));
-        setShowByCategory(true)
+        if (currentCategory === category) return;
+        fetchBooksByCategory(category);
         
-        switch (category){
-            case '1':
-                setViewDetail('Business analytics:')
-                break;
-            case '2':
-                setViewDetail('Deep learning:')
-                break;
-            case '3':
-                setViewDetail('Data science:')
-                break;
-            case '4':
-                setViewDetail('Mathematics:')
-                break;
-            case '5':
-                setViewDetail('Data Ethics:')
-                break;
-            case '6':
-                setViewDetail('NLP:')
-                break;
-            case '7':
-                setViewDetail('Python:')
-                break;
-            default:
-                setViewDetail('All books:')
-        }
+        const categoryMap = {
+            '1': 'Business Analytics:',
+            '2': 'Deep Learning:',
+            '3': 'Data Science:',
+            '4': 'Mathematics:',
+            '5': 'Data Ethics:',
+            '6': 'NLP:',
+            '7': 'Python:',
+        };
+
+        setViewDetail(categoryMap[category] || 'All Books:');
         setCount(prev => (prev + 1))
     }
 
     const viewAll = () =>{
-        setShowByCategory(false)
+        fetchBooks();
         setViewDetail('All books:')
+        setCurrentCategory(null);
     }
 
     const renderModal = () => {
         switch (viewModal){
             case 'none':
-                return ''
+                return null
             case 'login':
-                return <Login style={{display: 'block',}}/>
+                return <Login onClose={() => setViewModal('none')} />
             case 'signup':
                 return <h1>Sign Up</h1>
+            default:
+                return null
         }
     }
+    
+
 
     const handleModal = (modal) => {
         setViewModal(modal)
@@ -180,9 +165,9 @@ function Home(){
                 <div className="bottom">
                     <h2 key={count}>{viewDetail}</h2>
                     <div className="book-card-container">
-                    {showByCategory ? (
-                        bookCategory.length > 0 ? (
-                            bookCategory.map(book => (
+                    {currentCategory ? (
+                        categoryBooks.length > 0 ? (
+                            categoryBooks.map(book => (
                                 <div key={book.id} onClick={() => getBookId(book.id)}>
                                     <BookCard 
                                         key={book.id} 
