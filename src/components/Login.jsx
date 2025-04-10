@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast';
 
 function Login({ onClose }){

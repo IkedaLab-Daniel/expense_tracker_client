@@ -31,9 +31,19 @@ const BookProvider = ({ children }) => {
           const cat = book.category || 'Unknown';
           categoryCount[cat] = (categoryCount[cat] || 0) + 1;
         });
-        const stats = Object.entries(categoryCount).map(([label, value], id) => ({
+        const categoryMap = {
+          1: "Business",
+          2: "Deep Learning",
+          3: "Data Science",
+          4: "Mathematics",
+          5: "Data Ethics",
+          6: "NLP",
+          7: "Python",
+          Unknown: "Unknown", 
+        };
+        const stats = Object.entries(categoryCount).map(([key, value], id) => ({
           id,
-          label,
+          label: categoryMap[key] || "Unknown",
           value
         }));
 
