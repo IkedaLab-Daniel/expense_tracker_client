@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 // Images
 import all_books from '../assets/all-books-w.svg'
@@ -64,8 +64,6 @@ function Home(){
         }
     }
     
-
-
     const handleModal = (modal) => {
         setViewModal(modal)
     }
@@ -90,6 +88,10 @@ function Home(){
     const getBookId = (id) => {
         console.log(id);
     }
+
+    useEffect(() => {
+        setToken(localStorage.getItem('authToken'))
+    }, [viewModal])
     
 
     return(

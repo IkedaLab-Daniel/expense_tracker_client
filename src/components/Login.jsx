@@ -35,9 +35,9 @@ function Login({ onClose }){
         .then(data => {
             const token = data.auth_token;
             localStorage.setItem('authToken', token);
-            notifySuccess();
             onClose();
             console.log('Login successful:', token);
+            notifySuccess();
         })
         .catch(error => {
             console.error('Error during login:', error)
