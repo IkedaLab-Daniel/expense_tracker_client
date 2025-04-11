@@ -115,7 +115,7 @@ function Signup({ onClose, onSwitch }){
                             confirmError ? ({border: "2px solid #fe6161"}): ({})
                         }
                     />
-                    <span className="submit-btn" onClick={handleSubmit}>Sign Up</span>
+                    <button className="submit-btn" onClick={handleSubmit}>Sign Up</button>
                     {error ? (
                         <div className="form-error">Error: {error}</div>
                     ): (
@@ -124,7 +124,7 @@ function Signup({ onClose, onSwitch }){
                     
                     <span className="redirect-message">
                         Already have an account?
-                        <span className="redirect-link" onClick={onSwitch}> Log In</span>
+                        <button className="redirect-link" onClick={onSwitch}>Log In</button>
                     </span>
                 </div>
             </div>

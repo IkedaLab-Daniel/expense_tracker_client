@@ -394,6 +394,10 @@ body{
 
 .redirect-link{
   color: rgb(78, 167, 234);
+  background-color: white;
+  border: 0px;
+  font-size: 1rem;
+  margin-left: 5px;
 }
 
 .redirect-link:hover{
@@ -446,6 +450,26 @@ body{
   outline: 0px;
 }
 
+.form select{
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid rgb(142, 142, 142);
+  color: black;
+  transition: .4s;
+}
+
+.form select:focus{
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid rgb(73, 73, 73);
+  color: black;
+  outline: 0px;
+}
+
 .form .submit-btn{
   color: rgba(255, 255, 255, 0.796);
   background-color: black;
@@ -469,6 +493,88 @@ body{
   transform: translateY(5px) scale(97%);
 }
 
+/* Toolbar */
+.toolbar {
+  color: black;
+  position: fixed;
+  bottom: 20px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  padding: 5px 8px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  animation: slide-up 2s ease forwards;
+}
+
+.toolbar-btn{
+  color: white;
+  border: 2px black solid;
+  padding: 5px 25px;
+  border-radius: 30px;
+  background-color: #171717;
+  transition: .4s;
+}
+
+.toolbar-btn:hover{
+  cursor: pointer;
+  opacity: .8;
+  transform: scale(105%);
+}
+
+.toolbar-btn:active{
+  opacity: .5;
+  transform: scale(95%);
+}
+
+.toolbar-btn-delete{
+  color: white;
+  border: 2px #ff4f4f solid;
+  padding: 5px 25px;
+  border-radius: 30px;
+  background-color: #ff4f4f;
+  transition: .4s;
+}
+
+.toolbar-btn-delete:hover{
+  cursor: pointer;
+  opacity: .8;
+  transform: scale(105%);
+}
+
+.toolbar-btn-delete:active{
+  opacity: .5;
+  transform: scale(95%);
+}
+
+/* Add Modal */
+.add-modal {
+  width: 30vw;
+  min-width: 500px;
+  height: auto;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fade .5s ease forwards;
+}
+
+.dual-btn{
+  display: flex;
+  width: 80%;
+  gap: 10px;
+}
 
 @keyframes rotation{
   0%{
@@ -493,6 +599,21 @@ body{
     transform: translateY(50px) scale(90%);
   }
   100% {
+    opacity: 1;
+    transform: translateY(0) scale(100%);
+  }
+}
+
+@keyframes slide-up {
+  0%{
+    opacity: 0;
+    transform: translateY(100px) scale(50%);
+  }
+  30%{
+    opacity: 0;
+    transform: translateY(100px) scale(50%);
+  }
+  100%{
     opacity: 1;
     transform: translateY(0) scale(100%);
   }

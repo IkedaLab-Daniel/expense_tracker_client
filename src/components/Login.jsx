@@ -88,10 +88,10 @@ function Login({ onClose, onSwitch, onLoginSuccess }){
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                     />
-                    <span className="submit-btn" onClick={handleSubmit}>Log In</span>
+                    <button className="submit-btn" onClick={handleSubmit}>Log In</button>
                     <span className="redirect-message">
                         Don't have account? 
-                        <span className="redirect-link" onClick={onSwitch}> Sign Up</span>
+                        <button className="redirect-link" onClick={onSwitch}>Sign Up</button>
                     </span>
                     
                 </div>

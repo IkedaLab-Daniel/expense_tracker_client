@@ -11,6 +11,8 @@ import BookGraphCard from '../components/BookGraphCard'
 import BookCard from '../components/BookCard'
 import Login from '../components/Login'
 import Signup from '../components/Signup';
+import Toolbar from '../components/Toolbar';
+import AddModal from '../components/AddModal';
 
 function Home(){
 
@@ -70,6 +72,8 @@ function Home(){
                     />
             case 'signup':
                 return <Signup onClose={() => setViewModal('none')} onSwitch={() => setViewModal('login')}/>
+            case 'add':
+                return <AddModal onClose={() => setViewModal('none')}/>
             default:
                 return null
         }
@@ -181,6 +185,9 @@ function Home(){
                 </div>
                 <div className="bottom">
                     <h2 key={count}>{viewDetail}</h2>
+                    <Toolbar 
+                        add = {() => handleModal('add')}
+                    />
                     <div className="book-card-container">
                     {currentCategory ? (
                         categoryBooks.length > 0 ? (

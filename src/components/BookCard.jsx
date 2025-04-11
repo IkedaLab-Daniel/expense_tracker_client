@@ -11,21 +11,15 @@ function BookCard(props) {
             case 2:
                 return "Deep Learning"
             case 3:
-                return "Maths"
+                return "Data Science"
             case 4:
-                return "Data Ethics"
+                return "Maths"
             case 5:
-                return "NLP"
+                return "Data Ethics"
             case 6:
-                return "Python"
+                return "NLP"
             case 7:
-                return "R Studio"
-            case 8:
-                return "SQL"
-            case 9:
-                return "Statistics"
-            case 10:
-                return "Visualization"
+                return "Python"
             default:
                 return "Others"
         }
