@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import { toast } from 'react-hot-toast';
 export const BookContext = createContext();
 
 const BookProvider = ({ children }) => {
@@ -49,7 +49,10 @@ const BookProvider = ({ children }) => {
 
         setCategoryStats(stats);
       })
-      .catch(error => console.error('Error fetching books:', error));
+      .catch(error => {
+        console.error('Error fetching books:', error)
+        toast.error('Failed to fetch books. Please try again later.');
+      });
   };
 
   // Fetch books for a specific category

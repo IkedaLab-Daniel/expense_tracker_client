@@ -20,7 +20,7 @@ function Signup({ onClose, onSwitch }){
     });
 
     const handleSubmit = () => {
-        if (password !== confirmPassword){
+        if (password !== confirmPassword) {
             setError('Confirm Password does not match!')
             setPassword('')
             setConfirmPassword('')
@@ -28,6 +28,7 @@ function Signup({ onClose, onSwitch }){
             return
         }
     
+        // 1. Register the user (Only need this if u don't want auto login)
         fetch('http://127.0.0.1:8000/auth/users/', {
             method: 'POST',
             headers: {
@@ -40,31 +41,50 @@ function Signup({ onClose, onSwitch }){
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Registration failed');
+            }
+            return response.json();
+        })
+        .then(() => {
+            // 2. Auto-login right after signup (remove / edit this part if u want no auto login)
+            // ? if you don't want auto login, remove fetch, call onSwitch() instead
+            return fetch('http://127.0.0.1:8000/auth/token/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Login after signup failed');
             }
             return response.json();
         })
         .then(data => {
-            const username = data.username
+            const token = data.auth_token;
+            localStorage.setItem('authToken', token);
             localStorage.setItem('username', username);
-            onSwitch();
-            console.log('User Registered successful:', data);
+            onClose(); // ? Close the modal (auto login) - Remove this if u want no auto login
             notifySuccess();
         })
         .catch(error => {
-            console.error('Error during login:', error)
+            console.error('Error during signup/login:', error);
             notifyFail();
         });
     
-        setConfirmError(false)
-        setError('')
+        setConfirmError(false);
+        setError('');
         setUsername('');
         setPassword('');
         setConfirmPassword('');
     };
     
-    const token = localStorage.getItem('authToken');
-
+    
     return(
         <>
             <div className="black-bg" onClick={onClose}></div>
