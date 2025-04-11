@@ -13,6 +13,7 @@ import Login from '../components/Login'
 import Signup from '../components/Signup';
 import Toolbar from '../components/Toolbar';
 import AddModal from '../components/AddModal';
+import EditModal from '../components/EditModal';
 
 function Home(){
 
@@ -24,6 +25,8 @@ function Home(){
     const [token, setToken] = useState(localStorage.getItem('authToken'));
     const [count, setCount] = useState(1)
     const [username, setUsername] = useState(localStorage.getItem('username'))
+    const [selectedBook, setSelectedBook] = useState(null);
+
 
     const logoutSuccess = () => toast.success('Logged Out!', {
         position: 'top-center',
@@ -74,6 +77,11 @@ function Home(){
                 return <Signup onClose={() => setViewModal('none')} onSwitch={() => setViewModal('login')}/>
             case 'add':
                 return <AddModal onClose={() => setViewModal('none')}/>
+            case 'edit':
+                return <EditModal 
+                    book={selectedBook}
+                    onClose={() => setViewModal('none')}
+                />
             default:
                 return null
         }
@@ -103,13 +111,56 @@ function Home(){
     };
 
     const getBookId = (id) => {
-        console.log(id);
-    }
+        console.log('id:', id)
+        const book = books.find(b => b.id === id);
+        setSelectedBook(book); 
+        console.log(book);
+    };
+
+    const handleEdit = () => {
+        if (!selectedBook) {
+          toast.error("No book selected");
+          return;
+        }
+        setViewModal('edit');
+    };
+      
+    const handleDelete = () => {
+        if (!selectedBook) {
+          toast.error("No book selected");
+          return;
+        }
+      
+        const confirm = window.confirm(`Are you sure you want to delete "${selectedBook.title}"?`);
+        if (!confirm) return;
+      
+        fetch(`http://127.0.0.1:8000/api/books/${selectedBook.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Token ${token}`
+          }
+        })
+        .then(res => {
+          if (res.ok) {
+            toast.success("Book deleted");
+            fetchBooks(); // or fetchBooksByCategory again if inside a category
+            setSelectedBook(null);
+          } else {
+            toast.error("Failed to delete");
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          toast.error("Error deleting book");
+        });
+    };
 
     useEffect(() => {
         setToken(localStorage.getItem('authToken'))
         setUsername(localStorage.getItem('username'))
     }, [viewModal])
+
+    
     
 
     return(
@@ -187,6 +238,8 @@ function Home(){
                     <h2 key={count}>{viewDetail}</h2>
                     <Toolbar 
                         add = {() => handleModal('add')}
+                        edit={() => handleEdit()}
+                        delete_book={() => handleDelete()}
                     />
                     <div className="book-card-container">
                     {currentCategory ? (
@@ -216,18 +269,19 @@ function Home(){
                     ) : (
                         books.length > 0 ? (
                             books.map(book => (
-                                <BookCard 
-                                    key={book.id} 
-                                    id={book.id}
-                                    title={book.title} 
-                                    subtitle={book.subtitle}
-                                    authors={book.authors}
-                                    publisher={book.publisher}
-                                    published_date={book.published_date}
-                                    expense={book.distribution_expense}
-                                    category={book.category}
-                                    onClick={() => getBookId(book.id)}
-                                />
+                                <div key={book.id} onClick={() => getBookId(book.id)}>
+                                    <BookCard 
+                                        key={book.id} 
+                                        id={book.id}
+                                        title={book.title} 
+                                        subtitle={book.subtitle}
+                                        authors={book.authors}
+                                        publisher={book.publisher}
+                                        published_date={book.published_date}
+                                        expense={book.distribution_expense}
+                                        category={book.category}
+                                    />
+                                </div>
                             ))
                         ) : (
                             <div className='no-data-container'>

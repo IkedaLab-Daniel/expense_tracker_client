@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import toast, { Toaster } from 'react-hot-toast';
+import { BookContext } from '../context/BookProvider'
 
 function AddModal({ onClose }) {
-    // State for form values
+    const {fetchBooks} = useContext(BookContext);
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
@@ -57,6 +58,7 @@ function AddModal({ onClose }) {
             .then((data) => {
                 console.log('Book added successfully:', data);
                 toast.success('Book added successfully!');
+                fetchBooks();
                 onClose(); 
             })
             .catch((error) => {
