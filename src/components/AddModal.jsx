@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import { BookContext } from '../context/BookProvider'
 
-function AddModal({ onClose }) {
+function AddModal({ onClose, onRefresh }) {
     const {fetchBooks} = useContext(BookContext);
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
@@ -14,8 +14,7 @@ function AddModal({ onClose }) {
     const [category, setCategory] = useState('');
     const [token, setToken] = useState(localStorage.getItem('authToken'));
 
-    const handleSubmitClose = () => {
-        // Prepare the data to be sent
+    const handleSubmit= (close) => {
         const bookData = {
             id,
             title,
@@ -30,12 +29,12 @@ function AddModal({ onClose }) {
         console.log('Payload:', bookData);
         console.log('Payload (stringified):', JSON.stringify(bookData));
     
-        // Perform the POST request
+        // Perform the POST request HERE
         fetch('http://127.0.0.1:8000/api/books/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`, // Include the token
+                'Authorization': `Token ${token}`, 
             },
             body: JSON.stringify(bookData),
         })
@@ -58,8 +57,19 @@ function AddModal({ onClose }) {
             .then((data) => {
                 console.log('Book added successfully:', data);
                 toast.success('Book added successfully!');
-                fetchBooks();
-                onClose(); 
+                onRefresh()
+                if (close){
+                    onClose();
+                } else{
+                    setId('');
+                    setTitle('');
+                    setSubtitle('');
+                    setAuthors('');
+                    setPublisher('');
+                    setPublishDate('');
+                    setDistributionExpense('');
+                    setCategory('');
+                }
             })
             .catch((error) => {
                 console.error('Error adding book:', error.message);
@@ -131,8 +141,8 @@ function AddModal({ onClose }) {
                     </select>
                     
                     <div className="dual-btn">
-                        <button className="submit-btn" onClick={handleSubmitClose}>Save</button>
-                        <button className="submit-btn" onClick={handleSubmitClose}>Save and Add another</button>
+                        <button className="submit-btn" onClick={() => handleSubmit(true)}>Save</button>
+                        <button className="submit-btn" onClick={() => handleSubmit(false)}>Save and Add another</button>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,9 @@
 import authorSVG from '../assets/author.svg'
 import dateSVG from '../assets/date.svg'
 import idSVG from '../assets/id.svg'
+import checkmarkSVG from '../assets/checkmark.svg'
 
-function BookCard(props) {
+function BookCard({ id, title, authors, published_date, category, expense, isSelected, onSelect }) {
 
     const checkCategory = (num) => {
         switch (num) {
@@ -30,30 +31,33 @@ function BookCard(props) {
     }
     
     return (
-        <div className="book-card-wrapper">
-            <div className="book-card">
+        <div className="book-card-wrapper" onClick={onSelect} style={{ position: 'relative' }}>
+            <div className={`book-card ${isSelected ? 'selected' : ''}`}>
                 <p className="book_id">
                     <img className='authorSVG' src={idSVG} />
-                    {props.id}
+                    {id}
                 </p>
 
                 <div className="book-card-center">
-                    <p className="book-title">{shortenTitle(props.title)}</p>
+                    <p className="book-title">{shortenTitle(title)}</p>
                     <p className="book-author">
                         <img className='authorSVG' src={authorSVG} />
-                        {props.authors}
+                        {authors}
                     </p>
                     <p className="book-date">
                         <img className='authorSVG' src={dateSVG} />
-                        {props.published_date}
+                        {published_date}
                     </p>
                 </div>
 
                 <div className="book-card-bottom">
-                    <p className="book-category">{checkCategory(props.category)}</p>
-                    <p className="book-expense">$ {props.expense}</p>
+                    <p className="book-category">{checkCategory(category)}</p>
+                    <p className="book-expense">$ {expense}</p>
                 </div>
 
+                {isSelected && (
+                    <img src={checkmarkSVG} className='checkmark' />
+                    )}
             </div>
         </div>
         

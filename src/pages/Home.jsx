@@ -76,7 +76,7 @@ function Home(){
             case 'signup':
                 return <Signup onClose={() => setViewModal('none')} onSwitch={() => setViewModal('login')}/>
             case 'add':
-                return <AddModal onClose={() => setViewModal('none')}/>
+                return <AddModal onClose={() => setViewModal('none')} onRefresh={viewAll}/>
             case 'edit':
                 return <EditModal 
                     book={selectedBook}
@@ -143,7 +143,7 @@ function Home(){
         .then(res => {
           if (res.ok) {
             toast.success("Book deleted");
-            fetchBooks(); // or fetchBooksByCategory again if inside a category
+            viewAll(); // ! Back to ALL, because deleting does not immediately re-render updated category list
             setSelectedBook(null);
           } else {
             toast.error("Failed to delete");
@@ -236,11 +236,13 @@ function Home(){
                 </div>
                 <div className="bottom">
                     <h2 key={count}>{viewDetail}</h2>
-                    <Toolbar 
-                        add = {() => handleModal('add')}
-                        edit={() => handleEdit()}
-                        delete_book={() => handleDelete()}
-                    />
+                    {token && (
+                        <Toolbar 
+                            add = {() => handleModal('add')}
+                            edit={() => handleEdit()}
+                            delete_book={() => handleDelete()}
+                        />
+                    )}
                     <div className="book-card-container">
                     {currentCategory ? (
                         categoryBooks.length > 0 ? (
@@ -256,6 +258,8 @@ function Home(){
                                         published_date={book.published_date}
                                         expense={book.distribution_expense}
                                         category={book.category}
+                                        isSelected={selectedBook?.id === book.id}
+                                        onSelect={() => setSelectedBook(book)} // ? >> ?
                                     />
                                 </div>
                                 
@@ -280,6 +284,8 @@ function Home(){
                                         published_date={book.published_date}
                                         expense={book.distribution_expense}
                                         category={book.category}
+                                        isSelected={selectedBook?.id === book.id}
+                                        onSelect={() => setSelectedBook(book)}
                                     />
                                 </div>
                             ))

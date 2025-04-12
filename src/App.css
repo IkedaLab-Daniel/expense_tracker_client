@@ -29,6 +29,13 @@ body{
   text-decoration: underline;
 }
 
+.checkmark{
+  width: 2rem;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
 #home{
   display: flex;
   height: 100%;
