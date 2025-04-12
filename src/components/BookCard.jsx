@@ -29,6 +29,8 @@ function BookCard({ id, title, authors, published_date, category, expense, isSel
     const shortenTitle = (title) => {
         return title.length > 40 ? title.slice(0, 40) + "..." : title;
     }
+
+    const token = localStorage.getItem('authToken')
     
     return (
         <div className="book-card-wrapper" onClick={onSelect} style={{ position: 'relative' }}>
@@ -55,9 +57,8 @@ function BookCard({ id, title, authors, published_date, category, expense, isSel
                     <p className="book-expense">$ {expense}</p>
                 </div>
 
-                {isSelected && (
-                    <img src={checkmarkSVG} className='checkmark' />
-                    )}
+                {isSelected && token ? (<img src={checkmarkSVG} className='checkmark' />) : ('')}
+                
             </div>
         </div>
         

@@ -255,6 +255,27 @@ body{
   height: 100%;
   border-radius: 8px;
   box-shadow: 0px 2px 23px 0px rgba(54, 54, 54, 0.75);
+  padding: 10px;
+}
+
+.book-graph-card li {
+  color: white;
+  list-style-type: none; 
+}
+
+.book-graph-card .expense-data-wrapper{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.book-graph-card .expense-data-wrapper .left{
+  padding-left: 10%;
+  width: 70%;
+}
+
+.book-graph-card .expense-data-wrapper .right{
+  width: 30%;
 }
 
 
