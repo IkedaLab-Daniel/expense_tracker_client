@@ -30,7 +30,7 @@ function AddModal({ onClose, onRefresh }) {
         console.log('Payload (stringified):', JSON.stringify(bookData));
     
         // Perform the POST request HERE
-        fetch('http://127.0.0.1:8000/api/books/', {
+        fetch('https://expense-tracker-7oow.onrender.com/api/books/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
