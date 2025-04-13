@@ -98,7 +98,7 @@ function Home(){
     const handleLogout = () => {
         const token = localStorage.getItem('authToken');
     
-        fetch('http://127.0.0.1:8000/auth/token/logout/', {
+        fetch('https://expense-tracker-7oow.onrender.com/auth/token/logout/', {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -138,7 +138,7 @@ function Home(){
         const confirm = window.confirm(`Are you sure you want to delete "${selectedBook.title}"?`);
         if (!confirm) return;
       
-        fetch(`http://127.0.0.1:8000/api/books/${selectedBook.id}`, {
+        fetch(`https://expense-tracker-7oow.onrender.com/${selectedBook.id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`
