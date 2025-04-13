@@ -4,6 +4,7 @@ export const BookContext = createContext();
 
 const BookProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
+  const [totalBooks, setTotalBooks] = useState('')
   const [categoryBooks, setCategoryBooks] = useState([]);
   const [categoryStats, setCategoryStats] = useState([]);
   const [pagination, setPagination] = useState({
@@ -20,6 +21,7 @@ const BookProvider = ({ children }) => {
       .then(response => response.json())
       .then(data => {
         setBooks(data.results);
+        setTotalBooks(data.count)
         setPagination({
           next: data.next,
           previous: data.previous,
@@ -80,6 +82,7 @@ const BookProvider = ({ children }) => {
   return (
     <BookContext.Provider value={{
       books,
+      totalBooks,
       categoryBooks,
       currentCategory,
       pagination,

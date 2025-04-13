@@ -6,6 +6,7 @@ import iceSVG from '../assets/ice.svg'
 import noDataSVG from '../assets/no-data-2.svg'
 // Components
 import { BookContext } from '../context/BookProvider'
+import { ExpenseContext } from "../context/ExpenseProvider";
 import BookDataCard from '../components/BookDataCard'
 import BookGraphCard from '../components/BookGraphCard'
 import BookCard from '../components/BookCard'
@@ -18,8 +19,7 @@ import EditModal from '../components/EditModal';
 function Home(){
 
     const { books, categoryBooks, currentCategory, pagination, setCurrentCategory, fetchBooks, fetchBooksByCategory } = useContext(BookContext);
-// !    const [bookCategory, setBookCategory] = useState([])
-// !    const [showByCategory, setShowByCategory] = useState(false)
+    const { fetchAllExpenses, fetchExpensesByCategory } = useContext(ExpenseContext)
     const [viewDetail, setViewDetail] = useState('All Books')
     const [viewModal, setViewModal] = useState('none')
     const [token, setToken] = useState(localStorage.getItem('authToken'));
@@ -145,6 +145,8 @@ function Home(){
             toast.success("Book deleted");
             viewAll(); // ! Back to ALL, because deleting does not immediately re-render updated category list
             setSelectedBook(null);
+            fetchAllExpenses();
+            fetchExpensesByCategory();
           } else {
             toast.error("Failed to delete");
           }
@@ -201,13 +203,6 @@ function Home(){
                     <div className="button-set" onClick={() => bookCategoryCall('7')}>
                         <img src={all_books} className='icon' />
                         <span className="button">Python</span>
-                    </div>
-                </div>
-                <p className="label">EXPENSES</p>
-                <div className="btn-container">
-                    <div className="button-set">
-                        <img src={all_books} className='icon' />
-                        <span className="button">Show Data</span>
                     </div>
                 </div>
                 { !token ? (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast';
-
+import closeSVG from '../assets/close.svg'
 function Signup({ onClose, onSwitch }){
 
     const [username, setUsername] = useState('')
@@ -89,6 +89,7 @@ function Signup({ onClose, onSwitch }){
         <>
             <div className="black-bg" onClick={onClose}></div>
             <div className="login-modal form">
+                <img className="closeSVG" src={closeSVG} onClick={onClose}/>
                 <h1>Sign Up</h1>
                 <div className="vertical-center">
                     <input 

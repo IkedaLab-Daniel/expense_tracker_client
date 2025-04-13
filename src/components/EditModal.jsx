@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import toast from "react-hot-toast";
 import { BookContext } from '../context/BookProvider'
+import { ExpenseContext } from "../context/ExpenseProvider";
 
 function EditModal({ book, onClose }) {
   const [title, setTitle] = useState(book?.title || "");
@@ -11,6 +12,7 @@ function EditModal({ book, onClose }) {
   const [distributionExpense, setDistributionExpense] = useState(book?.distribution_expense || "");
   const [category, setCategory] = useState(book?.category || "");
   const { fetchBooks } = useContext(BookContext);
+  const { fetchAllExpenses, fetchExpensesByCategory } = useContext(ExpenseContext)
   const token = localStorage.getItem("authToken");
 
   const handleSubmit = (e) => {
@@ -52,8 +54,10 @@ function EditModal({ book, onClose }) {
       })
       .then((data) => {
         toast.success("Book updated successfully!");
-        fetchBooks(); // Refresh the book list
-        onClose(); // Close the modal
+        fetchBooks(); 
+        onClose(); 
+        fetchAllExpenses();
+        fetchExpensesByCategory();
       })
       .catch((error) => {
         console.error("Error updating book:", error.message);

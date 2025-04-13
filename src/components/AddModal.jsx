@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import { BookContext } from '../context/BookProvider'
-
+import { ExpenseContext } from "../context/ExpenseProvider";
+import closeSVG from '../assets/close.svg'
 function AddModal({ onClose, onRefresh }) {
-    const {fetchBooks} = useContext(BookContext);
+    const { fetchAllExpenses, fetchExpensesByCategory } = useContext(ExpenseContext)
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
@@ -58,6 +58,8 @@ function AddModal({ onClose, onRefresh }) {
                 console.log('Book added successfully:', data);
                 toast.success('Book added successfully!');
                 onRefresh()
+                fetchAllExpenses()
+                fetchExpensesByCategory()
                 if (close){
                     onClose();
                 } else{
@@ -81,6 +83,7 @@ function AddModal({ onClose, onRefresh }) {
         <>
             <div className="black-bg" onClick={onClose}></div>
             <div className="login-modal form">
+                <img className="closeSVG" src={closeSVG} onClick={onClose}/>
                 <h1>Add Book</h1>
                 <div className="vertical-center">
                     <input 
@@ -147,6 +150,9 @@ function AddModal({ onClose, onRefresh }) {
                 </div>
             </div>
             <Toaster />
+            <div className="info">
+                <span>?</span>
+            </div>
         </>
     );
 }

@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { ExpenseContext } from "../context/ExpenseProvider";
 
 function BookGraphCard() {
-    const { allExpenses, categoryExpenses, loading, error } = useContext(ExpenseContext);
+    const { categoryExpenses } = useContext(ExpenseContext);
 
     // Map category IDs to their names
     const getCategoryName = (num) => {
@@ -20,7 +20,6 @@ function BookGraphCard() {
 
     return (
         <div className="book-graph-card">
-            <h2 className="graph-title">Total Expenses: ${allExpenses?.total_expenses || 0}</h2>
             <div className="expense-data-wrapper">
                 <div className="left">
                     <ul>
