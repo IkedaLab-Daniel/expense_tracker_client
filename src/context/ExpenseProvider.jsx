@@ -12,7 +12,7 @@ const ExpenseProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/books/expenses/');
+            const response = await fetch('https://expense-tracker-7oow.onrender.com/api/books/expenses/');
             if (!response.ok) {
                 throw new Error('Failed to fetch all expenses');
             }
@@ -30,7 +30,7 @@ const ExpenseProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/books/expenses/category/');
+            const response = await fetch('https://expense-tracker-7oow.onrender.com/api/books/expenses/category/');
             if (!response.ok) {
                 throw new Error('Failed to fetch expenses by category');
             }

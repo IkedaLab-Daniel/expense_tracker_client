@@ -17,7 +17,7 @@ const BookProvider = ({ children }) => {
 
   // Fetch all books for a given page
   const fetchBooks = (page = 1) => {
-    fetch(`http://localhost:8000/api/books/?page=${page}`)
+    fetch(`https://expense-tracker-7oow.onrender.com/api/books/?page=${page}`)
       .then(response => response.json())
       .then(data => {
         setBooks(data.results);
@@ -60,7 +60,7 @@ const BookProvider = ({ children }) => {
   // Fetch books for a specific category
   const fetchBooksByCategory = (categoryId, page = 1) => {
     setCurrentCategory(categoryId);
-    fetch(`http://localhost:8000/api/books/category/${categoryId}?page=${page}`)
+    fetch(`https://expense-tracker-7oow.onrender.com/api/books/category/${categoryId}?page=${page}`)
       .then(response => response.json())
       .then(data => {
         setCategoryBooks(data.results);
