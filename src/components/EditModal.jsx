@@ -31,7 +31,7 @@ function EditModal({ book, onClose }) {
 
     // ? Perform the PATCH request (NEED TO REMOVE "/" at the end of endpont)
     // ! Need fix endpoint to add "/" in the end 
-    fetch(`http://127.0.0.1:8000/api/books/${book.id}`, {
+    fetch(`https://expense-tracker-7oow.onrender.com/api/books/${book.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
