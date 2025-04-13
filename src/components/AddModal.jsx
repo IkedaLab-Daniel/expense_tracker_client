@@ -87,10 +87,11 @@ function AddModal({ onClose, onRefresh }) {
                 <h1>Add Book</h1>
                 <div className="vertical-center">
                     <input 
-                        type="text"
+                        type="number"
                         placeholder="ID"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
+                        className="num-no-toolkit"
                     />
                     <input 
                         type="text"
@@ -150,9 +151,6 @@ function AddModal({ onClose, onRefresh }) {
                 </div>
             </div>
             <Toaster />
-            <div className="info">
-                <span>?</span>
-            </div>
         </>
     );
 }

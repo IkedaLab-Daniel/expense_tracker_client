@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import all_books from '../assets/all-books-w.svg'
 import iceSVG from '../assets/ice.svg'
 import noDataSVG from '../assets/no-data-2.svg'
+import infoSVG from '../assets/info2.svg'
 // Components
 import { BookContext } from '../context/BookProvider'
 import { ExpenseContext } from "../context/ExpenseProvider";
@@ -15,6 +16,7 @@ import Signup from '../components/Signup';
 import Toolbar from '../components/Toolbar';
 import AddModal from '../components/AddModal';
 import EditModal from '../components/EditModal';
+import InfoModal from '../components/InfoModal';
 
 function Home(){
 
@@ -82,6 +84,8 @@ function Home(){
                     book={selectedBook}
                     onClose={() => setViewModal('none')}
                 />
+            case 'info':
+                return <InfoModal onClose={() => setViewModal('none')} />
             default:
                 return null
         }
@@ -295,6 +299,9 @@ function Home(){
                 </div>
             </main>
             {renderModal()}
+            <div className="info" onClick={() => handleModal('info')}>
+                <img src={iceSVG} />
+            </div>
             <Toaster />
         </div>
     )

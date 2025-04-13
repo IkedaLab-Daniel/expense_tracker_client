@@ -29,6 +29,32 @@ body{
   text-decoration: underline;
 }
 
+.info{
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  transition: .4s;
+}
+
+.info img{
+  width: 50px;
+  animation: rotation 10s infinite linear;
+}
+
+.info:hover{
+  transform: scale(110%);
+  cursor: pointer;
+}
+
+.info:active{
+  opacity: .5;
+  transform: scale(90%);
+}
+
+.mt30{
+  margin-top: 30px;
+}
+
 .checkmark{
   width: 2rem;
   position: absolute;
@@ -47,6 +73,12 @@ body{
 .closeSVG:hover{
   transform: scale(110%);
   cursor: pointer;
+}
+
+.bold{
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: black;
 }
 
 #home{
@@ -492,6 +524,18 @@ body{
   margin-top: 10px; 
 }
 
+.num-no-toolkit {
+  -moz-appearance: textfield; /* For Firefox */
+  -webkit-appearance: none; /* For Chrome, Safari, and Edge */
+  appearance: none; /* Standard property */
+}
+
+.num-no-toolkit::-webkit-inner-spin-button,
+.num-no-toolkit::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove spinner for WebKit browsers */
+  margin: 0; /* Remove margin */
+}
+
 .vertical-center{
   width: 100%;
   height: auto;
@@ -499,6 +543,71 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.vertical-center .developer{
+  width: 20%;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.name-with-ice{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transform: translateX(7px);
+}
+
+.mini-ice{
+  position: absolute;
+  width: 20px;
+  left: -25px;
+  top: 0px;
+  animation: rotation 2s infinite linear;
+}
+
+.status{
+  background-color: rgb(213, 213, 2);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.header-with-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.header-with-img img{
+  width: 1.7rem;
+}
+
+.tech-container{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80%; 
+}
+
+.tech-img-name{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.tech-img-name img{
+  width: 50px;
+}
+
+.tech-img-name .tech-name{
+  color: black;
 }
 
 .form input{
