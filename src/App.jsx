@@ -1,4 +1,4 @@
-import Home from './pages/home'
+import Home from './pages/Home'
 import './App.css'
 import BookProvider from './context/BookProvider'
 import ExpenseProvider from './context/ExpenseProvider'
