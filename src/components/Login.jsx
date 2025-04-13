@@ -18,7 +18,7 @@ function Login({ onClose, onSwitch, onLoginSuccess }){
     });
 
     const handleSubmit = () => {
-        fetch('http://127.0.0.1:8000/auth/token/login/', {
+        fetch('https://expense-tracker-7oow.onrender.com/auth/token/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function Login({ onClose, onSwitch, onLoginSuccess }){
             console.log('Login successful:', token);
             notifySuccess();
     
-            return fetch('http://127.0.0.1:8000/auth/users/me/', {
+            return fetch('https://expense-tracker-7oow.onrender.com/auth/users/me/', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${token}`,

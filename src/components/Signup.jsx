@@ -29,7 +29,7 @@ function Signup({ onClose, onSwitch }){
         }
     
         // 1. Register the user (Only need this if u don't want auto login)
-        fetch('http://127.0.0.1:8000/auth/users/', {
+        fetch('https://expense-tracker-7oow.onrender.com/auth/users/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function Signup({ onClose, onSwitch }){
         .then(() => {
             // 2. Auto-login right after signup (remove / edit this part if u want no auto login)
             // ? if you don't want auto login, remove fetch, call onSwitch() instead
-            return fetch('http://127.0.0.1:8000/auth/token/login/', {
+            return fetch('https://expense-tracker-7oow.onrender.com/auth/token/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
