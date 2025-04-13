@@ -138,7 +138,7 @@ function Home(){
         const confirm = window.confirm(`Are you sure you want to delete "${selectedBook.title}"?`);
         if (!confirm) return;
       
-        fetch(`https://expense-tracker-7oow.onrender.com/${selectedBook.id}`, {
+        fetch(`https://expense-tracker-7oow.onrender.com/api/books/${selectedBook.id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`
